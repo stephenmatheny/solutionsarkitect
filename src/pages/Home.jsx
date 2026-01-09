@@ -101,7 +101,29 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section kicker="Join in" title="Bring students, families, and teams together.">
+      <Section kicker="About" title="Led with education and community in mind.">
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <p className="max-w-xl text-sm text-slate-700">
+              Solutions Arkitect is led by Stephen Matheny. To learn more or get in touch,
+              view his background and contact information here.
+            </p>
+
+            <a
+              href="https://smatheny.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50"
+            >
+              Learn more about Stephen
+            </a>
+
+          </div>
+        </div>
+      </Section>
+
+
+      {/* <Section kicker="Join in" title="Bring students, families, and teams together.">
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="text-sm text-slate-700">
@@ -126,7 +148,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </Section>
+      </Section> */}
     </>
   );
 }

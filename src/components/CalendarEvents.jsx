@@ -10,7 +10,6 @@ import {
 } from "@tabler/icons-react";
 import { downloadICS } from "../utils/ics";
 import { mapsUrl } from "../utils/mapsUrl";
-import { AddToCalendarButton } from "add-to-calendar-button-react";
 
 function normalizeEventTimes(ev) {
   const start = ev.start?.dateTime || (ev.start?.date ? `${ev.start.date}T00:00:00` : null);

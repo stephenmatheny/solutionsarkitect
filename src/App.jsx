@@ -6,6 +6,9 @@ import Events from "./pages/Events.jsx";
 import LufkinChess from "./pages/LufkinChess.jsx";
 import Contact from "./pages/Contact.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import Software from "./pages/Software.jsx";
+import Websites from "./pages/Websites.jsx";
+import Automation from "./pages/Automation.jsx";
 
 export default function App() {
   return (
@@ -14,6 +17,9 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/academy" element={<Academy />} />
         <Route path="/events" element={<Events />} />
+        <Route path="/software" element={<Software />} />
+        <Route path="/websites" element={<Websites />} />
+        <Route path="/automation" element={<Automation />} />
 
         {/* IMPORTANT: Keep this EXACT route forever */}
         <Route path="/lufkin-chess" element={<LufkinChess />} />

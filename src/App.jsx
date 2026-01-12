@@ -14,18 +14,17 @@ export default function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
+        {/* ACTIVELY USED */}
         <Route path="/" element={<Home />} />
         <Route path="/academy" element={<Academy />} />
+        <Route path="/lufkin-chess" element={<LufkinChess />} />
+        <Route path="*" element={<NotFound />} />
+
+        <Route path="/automation" element={<Automation />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/events" element={<Events />} />
         <Route path="/software" element={<Software />} />
         <Route path="/websites" element={<Websites />} />
-        <Route path="/automation" element={<Automation />} />
-
-        {/* IMPORTANT: Keep this EXACT route forever */}
-        <Route path="/lufkin-chess" element={<LufkinChess />} />
-
-        <Route path="/contact" element={<Contact />} />
-        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );

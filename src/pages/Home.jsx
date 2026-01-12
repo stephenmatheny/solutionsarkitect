@@ -13,7 +13,7 @@ import {
 } from "@tabler/icons-react";
 import { offerings, steps } from "../data/home.js";
 
-function Card({ icon, title, desc, to }) {
+function Card({ icon, title, desc }) {
   return (
     <div className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md">
       <div className="flex items-start gap-4">
@@ -79,7 +79,6 @@ export default function Home() {
               icon={iconMap[item.icon]}
               title={item.title}
               desc={item.desc}
-              to={item.to}
             />
           ))}
         </div>

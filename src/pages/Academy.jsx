@@ -203,21 +203,6 @@ const communityMeans = [
   "We reinvest support directly into instruction and access",
 ];
 
-const partnershipTeaser = [
-  "Churches",
-  "Schools and districts",
-  "Hosting Ark Enrichment classes",
-  "Referring students in need",
-  "Co-sponsoring student seats",
-];
-
-const sponsorshipTeaser = [
-  "Offer reduced-cost or free seats",
-  "Expand access to underserved students",
-  "Maintain small class sizes and quality instruction",
-  "Keep the program sustainable long-term",
-];
-
 const engageWays = [
   "Enroll a student",
   "Refer a family",
@@ -243,6 +228,16 @@ export default function Academy() {
             Real Math. Real Confidence. Real Opportunity.
           </h1>
 
+          <div className="lg:hidden">
+            <div className="mt-2 overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-lg backdrop-blur">
+              <img
+                src="/images/ark-enrichment-hero.jpg"
+                alt="Students collaborating during Ark Enrichment math session"
+                className="h-full w-full object-cover"
+              />
+            </div>
+          </div>
+
           <p className="max-w-2xl text-base leading-7 text-slate-200">
             Ark Enrichment is a math enrichment program designed to help students understand math deeply,
             not just memorize steps. We serve students who want more challenge, more clarity, or a different
@@ -263,7 +258,7 @@ export default function Academy() {
           </div>
         </div>
 
-        <div className="flex-1">
+        <div className="hidden flex-1 lg:block">
           <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-lg backdrop-blur">
             <img
               src="/images/ark-enrichment-hero.jpg"

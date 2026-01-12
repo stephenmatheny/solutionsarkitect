@@ -20,11 +20,13 @@ const navLinks = [
     to: "/",
     label: "Home",
     icon: IconHome2,
+    showOnDesktop: false,
   },
   {
     to: "/lufkin-chess",
     label: "Lufkin Chess",
     icon: IconChess,
+    showOnDesktop: true,
   },
 ];
 
@@ -130,21 +132,24 @@ export default function Header() {
 
           {/* Desktop links */}
           <nav className="hidden items-center gap-2 md:flex">
-            {navLinks.map(({ to, label, icon: Icon }) => (
-              <NavLink
-                key={to}
-                to={to}
-                className={({ isActive }) =>
-                  clsx(linkBase, isActive ? linkActive : linkInactive)
-                }
-              >
-                <span className="inline-flex items-center gap-2">
-                  <Icon size={16} />
-                  {label}
-                </span>
-              </NavLink>
-            ))}
+            {navLinks
+              .filter((l) => l.showOnDesktop)
+              .map(({ to, label, icon: Icon }) => (
+                <NavLink
+                  key={to}
+                  to={to}
+                  className={({ isActive }) =>
+                    clsx(linkBase, isActive ? linkActive : linkInactive)
+                  }
+                >
+                  <span className="inline-flex items-center gap-2">
+                    <Icon size={16} />
+                    {label}
+                  </span>
+                </NavLink>
+              ))}
           </nav>
+
         </div>
 
         {/* Right: logo */}

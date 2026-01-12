@@ -20,7 +20,7 @@ import {
 
 function Section({ title, subtitle, children, kicker, icon: Icon }) {
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+    <section className="mx-auto w-full max-w-6xl px-4 py-8 sm:py-10 sm:px-6 lg:px-8">
       <div className="flex flex-col gap-4">
         {kicker ? (
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
@@ -72,7 +72,7 @@ function CTAButton({ href, children, variant = "primary", className = "" }) {
 
 function Card({ title, icon: Icon, children }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-sm backdrop-blur">
+    <div className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-sm backdrop-blur sm:p-6">
       {title ? (
         <div className="flex items-center gap-2">
           {Icon ? <Icon size={18} className="text-slate-100/90" /> : null}
@@ -121,8 +121,8 @@ function DotList({ items }) {
   );
 }
 
-function ImageCard({ src, alt, className = "", withAspect = true }) {
-  const aspectClass = withAspect ? "aspect-[4/3]" : "";
+function ImageCard({ src, alt, className = "", withAspect = true, aspect = "aspect-[16/10]" }) {
+  const aspectClass = withAspect ? aspect : "";
   return (
     <div
       className={`overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-sm ${aspectClass} ${className}`}
@@ -218,28 +218,19 @@ export default function Academy() {
     // Transparent wrapper: inherits background from parent layout
     <div className="text-slate-100">
       {/* HERO */}
-      <section className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-12 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-        <div className="flex-1 space-y-5">
+      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
+          <div className="order-1 space-y-5">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">
-            Ark Enrichment
+            Ark Enrichment Academy
           </p>
 
           <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Real Math. Real Confidence. Real Opportunity.
           </h1>
 
-          <div className="lg:hidden">
-            <div className="mt-2 overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-lg backdrop-blur">
-              <img
-                src="/images/ark-enrichment-hero.jpg"
-                alt="Students collaborating during Ark Enrichment math session"
-                className="h-full w-full object-cover"
-              />
-            </div>
-          </div>
-
           <p className="max-w-2xl text-base leading-7 text-slate-200">
-            Ark Enrichment is a math enrichment program designed to help students understand math deeply,
+            Ark Enrichment Academy is a math enrichment program designed to help students understand math deeply,
             not just memorize steps. We serve students who want more challenge, more clarity, or a different
             approach than traditional classrooms can offer.
           </p>
@@ -247,7 +238,7 @@ export default function Academy() {
           <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <CTAButton href="https://forms.gle/bxhFtNBQPT6uR2Cj9">Enroll a Student</CTAButton>
             <CTAButton href="mailto:stephen@solutionsarkitect.com" variant="secondary">
-              Contact Ark Enrichment
+              Contact Us
             </CTAButton>
           </div>
 
@@ -258,23 +249,22 @@ export default function Academy() {
           </div>
         </div>
 
-        <div className="hidden flex-1 lg:block">
-          <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-lg backdrop-blur">
-            <img
+          <div className="order-2">
+            <ImageCard
               src="/images/ark-enrichment-hero.jpg"
               alt="Students collaborating during Ark Enrichment math session"
-              className="h-full w-full object-cover"
+              aspect="aspect-[16/11] sm:aspect-[16/10]"
             />
           </div>
         </div>
       </section>
 
       {/* WHAT IS */}
-      <Section title="What Is Ark Enrichment?" icon={IconBulb}>
+      <Section title="What Is Ark Enrichment Academy?" icon={IconBulb}>
         <div className="grid gap-6 lg:grid-cols-2">
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-sm backdrop-blur">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-sm backdrop-blur sm:p-6">
             <p className="text-sm leading-7 text-slate-200">
-              Ark Enrichment is an in-person math enrichment program serving upper elementary, middle school,
+              Ark Enrichment Academy is an in-person math enrichment program serving upper elementary, middle school,
               high school, and adult learners.
             </p>
 
@@ -287,12 +277,12 @@ export default function Academy() {
               Our goal is confidence, clarity, and long-term understanding.
             </p>
 
-            <div className="mt-4">
+            <div className="mt-4 hidden sm:block">
               <CheckList items={focusItems} />
             </div>
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-sm backdrop-blur">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-sm backdrop-blur sm:p-6">
             <div className="flex items-center gap-2">
               <IconHeartHandshake size={18} className="text-slate-100/90" />
               <h3 className="text-lg font-semibold text-white">What Families Can Expect</h3>
@@ -329,7 +319,7 @@ export default function Academy() {
       </Section>
 
       {/* WHO FOR */}
-      <Section title="Who Ark Enrichment Is For" icon={IconUsers}>
+      <Section title="Who Ark Enrichment Academy Is For" icon={IconUsers}>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {audienceCards.map((card) => (
             <Card key={card.title} title={card.title} icon={card.icon}>
@@ -340,7 +330,7 @@ export default function Academy() {
       </Section>
 
       {/* DIFFERENT */}
-      <Section title="How Ark Enrichment Is Different" icon={IconSparkles}>
+      <Section title="How Ark Enrichment Academy Is Different" icon={IconSparkles}>
         <div className="grid gap-6 lg:grid-cols-[2fr,1fr]">
           <Card title="What We Do" icon={IconCheck}>
             <CheckList items={differenceList} />
@@ -362,13 +352,13 @@ export default function Academy() {
           <ImageCard
             src="/images/ark-enrichment-session.jpg"
             alt="Small-group math session with discussion and whiteboard work"
-            withAspect={false}
-            className="h-full min-h-[240px] order-1 lg:order-2"
+            aspect="aspect-[16/11] sm:aspect-[16/10]"
+            className="order-1 lg:order-2"
           />
 
-          <div className="space-y-3 rounded-2xl border border-white/10 bg-white/5 p-5 shadow-sm backdrop-blur order-2 lg:order-1">
+          <div className="space-y-3 rounded-2xl border border-white/10 bg-white/5 p-5 shadow-sm backdrop-blur order-2 lg:order-1 sm:p-6">
             <p className="text-sm text-slate-200">
-              While classes adapt to student needs, a typical Ark Enrichment session includes:
+              While classes adapt to student needs, a typical enrichment session includes:
             </p>
 
             <ol className="mt-4 space-y-3 text-sm text-slate-100/90">
@@ -417,7 +407,7 @@ export default function Academy() {
             Math is about sense-making.
           </p>
           <p className="text-sm text-slate-200">
-            Ark Enrichment exists to restore confidence, curiosity, and joy in learning—especially for students who have
+            Ark Enrichment Academy exists to restore confidence, curiosity, and joy in learning—especially for students who have
             been told they “aren’t good at math.”
           </p>
         </div>
@@ -428,7 +418,7 @@ export default function Academy() {
         <div className="grid gap-6 lg:grid-cols-[2fr,1fr]">
           <Card title="Our Nonprofit Approach" icon={IconHeartHandshake}>
             <p>
-              Ark Enrichment operates under Solutions Arkitect, a nonprofit organization committed to removing barriers
+              Ark Enrichment Academy operates under Solutions Arkitect, a nonprofit organization committed to removing barriers
               to education through innovation, technology, and partnerships.
             </p>
 
@@ -443,7 +433,7 @@ export default function Academy() {
           <div className="space-y-4">
             <Card title="Partnership Mindset" icon={IconSchool}>
               <p>
-                We actively partner with organizations that share our mission. Let’s talk about how Ark Enrichment can
+                We actively partner with organizations that share our mission. Let’s talk about how Ark Enrichment Academy can
                 serve your community.
               </p>
             </Card>
@@ -524,7 +514,7 @@ export default function Academy() {
               Become a Sponsor
             </CTAButton> */}
             <CTAButton href="mailto:stephen@solutionsarkitect.com" variant="secondary">
-              Contact Ark Enrichment
+              Contact Us
             </CTAButton>
           </div>
         </div>
@@ -533,7 +523,7 @@ export default function Academy() {
       {/* FOOTER LINE */}
       <Section>
         <div className="text-center text-sm text-slate-300">
-          Ark Enrichment is a program of Solutions Arkitect, a nonprofit organization dedicated to empowering students
+          Ark Enrichment Academy is a program of Solutions Arkitect, a nonprofit organization dedicated to empowering students
           through education, innovation, and community partnership.
         </div>
       </Section>

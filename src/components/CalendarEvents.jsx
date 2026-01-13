@@ -11,9 +11,15 @@ import {
 import { downloadICS } from "../utils/ics";
 import { mapsUrl } from "../utils/mapsUrl";
 
+/* ---------- Helpers ---------- */
+
 function normalizeEventTimes(ev) {
-  const start = ev.start?.dateTime || (ev.start?.date ? `${ev.start.date}T00:00:00` : null);
-  const end = ev.end?.dateTime || (ev.end?.date ? `${ev.end.date}T00:00:00` : null);
+  const start =
+    ev.start?.dateTime ||
+    (ev.start?.date ? `${ev.start.date}T00:00:00` : null);
+  const end =
+    ev.end?.dateTime ||
+    (ev.end?.date ? `${ev.end.date}T00:00:00` : null);
   const isAllDay = Boolean(ev.start?.date);
   return { start, end, isAllDay };
 }
@@ -49,26 +55,24 @@ function formatWhen(startISO, endISO, isAllDay) {
 }
 
 function sanitizeDescriptionHtml(html) {
-  // Allow only safe formatting + links.
-  // DOMPurify strips scripts/handlers automatically.
   const clean = DOMPurify.sanitize(html, {
     ALLOWED_TAGS: ["a", "br", "b", "strong", "i", "em", "p", "ul", "ol", "li"],
     ALLOWED_ATTR: ["href", "target", "rel"],
   });
 
-  // Ensure all links open in a new tab safely.
-  // (DOMPurify can’t add these automatically in sanitize config consistently.)
   return clean.replaceAll(
     "<a ",
     '<a target="_blank" rel="noopener noreferrer" '
   );
 }
 
+/* ---------- Event Card ---------- */
+
 function EventCard({ ev }) {
   const { start, end, isAllDay } = normalizeEventTimes(ev);
   const when = formatWhen(start, end, isAllDay);
 
-  const hasDetails = Boolean(ev.description && ev.description.trim().length > 0);
+  const hasDetails = Boolean(ev.description?.trim());
   const [openDetails, setOpenDetails] = useState(false);
 
   const safeHtml = useMemo(() => {
@@ -78,47 +82,40 @@ function EventCard({ ev }) {
 
   return (
     <article className="group rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm transition hover:shadow-md">
-      {/* Top row: date/time + add-to-calendar */}
+      {/* Date / Add to calendar */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
-        {/* Date/time */}
         <div className="min-w-0">
           <div className="flex items-start gap-2">
-            <IconCalendarEvent
-              size={18}
-              className="mt-0.5 shrink-0 text-slate-700"
-            />
-            <span className="block text-sm font-semibold leading-5 text-slate-900 sm:text-base sm:tracking-tight">
+            <IconCalendarEvent size={18} className="mt-0.5 text-slate-700" />
+            <span className="block text-sm font-semibold text-slate-900 sm:text-base">
               {when}
             </span>
           </div>
         </div>
 
-        {/* Add to calendar button */}
-        <div className="flex sm:justify-end">
-          <button
-            type="button"
-            onClick={() =>
-              downloadICS({
-                title: ev.summary || "Event",
-                startISO: start,
-                endISO: end,
-                isAllDay,
-                location: ev.location,
-                description: ev.description ? ev.description.replace(/<[^>]*>/g, "") : "",
-                url: ev.htmlLink,
-                filename: `${(ev.summary || "event")
-                  .toLowerCase()
-                  .replace(/[^a-z0-9]+/g, "-")}.ics`,
-              })
-            }
-            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2 text-xs font-medium text-white hover:bg-slate-800 sm:w-auto"
-            aria-label="Add to calendar"
-            title="Add to calendar"
-          >
-            <IconCalendarPlus size={16} />
-            <span className="sm:hidden">Add to calendar</span>
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={() =>
+            downloadICS({
+              title: ev.summary || "Event",
+              startISO: start,
+              endISO: end,
+              isAllDay,
+              location: ev.location,
+              description: ev.description
+                ? ev.description.replace(/<[^>]*>/g, "")
+                : "",
+              url: ev.htmlLink,
+              filename: `${(ev.summary || "event")
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, "-")}.ics`,
+            })
+          }
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2 text-xs font-medium text-white hover:bg-slate-800"
+        >
+          <IconCalendarPlus size={16} />
+          <span className="sm:hidden">Add to calendar</span>
+        </button>
       </div>
 
       {/* Title */}
@@ -133,23 +130,21 @@ function EventCard({ ev }) {
           target="_blank"
           rel="noopener noreferrer"
           className="mt-2 flex items-start gap-2 text-sm text-slate-700 hover:underline"
-          aria-label={`Open map for ${ev.location}`}
-          title="Open in Maps"
         >
-          <IconMapPin size={16} className="mt-0.5 shrink-0" />
-          <span className="min-w-0 break-words">{ev.location}</span>
+          <IconMapPin size={16} className="mt-0.5" />
+          <span className="break-words">{ev.location}</span>
         </a>
       ) : (
         <div className="mt-2 text-sm text-slate-500">Location TBD</div>
       )}
 
-      {/* Details toggle only if there are details */}
-      {hasDetails ? (
+      {/* Details */}
+      {hasDetails && (
         <div className="mt-4">
           <button
             type="button"
             onClick={() => setOpenDetails((v) => !v)}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 sm:w-auto sm:justify-start"
+            className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50"
           >
             {openDetails ? "Hide details" : "See details"}
             {openDetails ? (
@@ -159,29 +154,27 @@ function EventCard({ ev }) {
             )}
           </button>
         </div>
-      ) : null}
+      )}
 
-      {/* Details content (supports links) */}
-      {hasDetails && openDetails ? (
+      {hasDetails && openDetails && (
         <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
-          <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+          <div className="text-xs font-semibold uppercase text-slate-500">
             Details
           </div>
-
           <div
             className="prose prose-slate mt-2 max-w-none text-sm"
             dangerouslySetInnerHTML={{ __html: safeHtml }}
           />
         </div>
-      ) : null}
+      )}
     </article>
   );
-
 }
 
+/* ---------- Calendar Events (API FIXED) ---------- */
+
 export default function CalendarEvents({
-  calendarId,
-  apiKey,
+  calendar = "lufkin-chess",
   title = "Upcoming events",
   daysAhead = 60,
   maxResults = 12,
@@ -190,20 +183,16 @@ export default function CalendarEvents({
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState(null);
 
-  const timeMin = useMemo(() => new Date().toISOString(), []);
-  const timeMax = useMemo(() => {
-    const d = new Date();
-    d.setDate(d.getDate() + daysAhead);
-    return d.toISOString();
-  }, [daysAhead]);
+  const apiUrl = useMemo(() => {
+    const params = new URLSearchParams({
+      calendar,
+      daysAhead: String(daysAhead),
+      maxResults: String(maxResults),
+    });
+    return `/api/calendar?${params.toString()}`;
+  }, [calendar, daysAhead, maxResults]);
 
   useEffect(() => {
-    if (!calendarId || !apiKey) {
-      setStatus("error");
-      setError("Missing calendarId or apiKey.");
-      return;
-    }
-
     const controller = new AbortController();
 
     async function load() {
@@ -211,26 +200,16 @@ export default function CalendarEvents({
       setError(null);
 
       try {
-        const encodedId = encodeURIComponent(calendarId);
-        const params = new URLSearchParams({
-          key: apiKey,
-          singleEvents: "true",
-          orderBy: "startTime",
-          timeMin,
-          timeMax,
-          maxResults: String(maxResults),
-        });
-
-        const url = `https://www.googleapis.com/calendar/v3/calendars/${encodedId}/events?${params.toString()}`;
-
-        const res = await fetch(url, { signal: controller.signal });
+        const res = await fetch(apiUrl, { signal: controller.signal });
         const data = await res.json();
 
         if (!res.ok) {
-          throw new Error(data?.error?.message || "Failed to load calendar events.");
+          throw new Error(
+            data?.error?.message || data?.error || "Failed to load events."
+          );
         }
 
-        setEvents(Array.isArray(data.items) ? data.items : []);
+        setEvents(Array.isArray(data.events) ? data.events : []);
         setStatus("success");
       } catch (err) {
         if (err.name === "AbortError") return;
@@ -241,14 +220,16 @@ export default function CalendarEvents({
 
     load();
     return () => controller.abort();
-  }, [calendarId, apiKey, timeMin, timeMax, maxResults]);
+  }, [apiUrl]);
 
   return (
     <section className="mt-8">
       <div className="flex items-center justify-between">
         <h3 className="text-base font-semibold tracking-tight">{title}</h3>
         {status === "success" && (
-          <span className="text-xs text-slate-500">Updated from Google Calendar</span>
+          <span className="text-xs text-slate-500">
+            Updated from Google Calendar
+          </span>
         )}
       </div>
 
@@ -263,10 +244,7 @@ export default function CalendarEvents({
           <IconAlertTriangle size={18} className="mt-0.5" />
           <div>
             <div className="font-medium">Couldn’t load events</div>
-            <div className="mt-1 text-amber-800">{error}</div>
-            <div className="mt-2 text-xs text-amber-800">
-              Make sure the calendar is public and the API key is valid.
-            </div>
+            <div className="mt-1">{error}</div>
           </div>
         </div>
       )}

@@ -8,9 +8,6 @@ import {
 } from "@tabler/icons-react";
 import CalendarEvents from "../components/CalendarEvents.jsx";
 
-const API_KEY = import.meta.env.VITE_GOOGLE_CALENDAR_API_KEY;
-const CALENDAR_ID = import.meta.env.VITE_GOOGLE_CALENDAR_ID;
-
 function Info({ icon, label, value }) {
   return (
     <div className="flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-4">
@@ -79,8 +76,7 @@ export default function LufkinChess() {
         <div className="mt-4">
           <CalendarEvents
             title="Upcoming Lufkin Chess Club Meetups"
-            calendarId={CALENDAR_ID}
-            apiKey={API_KEY}
+            calendar="lufkin-chess"
             daysAhead={120}
             maxResults={10}
           />

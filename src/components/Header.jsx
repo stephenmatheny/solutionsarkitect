@@ -37,14 +37,14 @@ export default function Header() {
 
         {/* Right: logo */}
         <NavLink to="/" className="order-2 flex items-center gap-2 md:order-1">
-          <span className="inline-flex h-9 w-9 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50">
+          {/* <span className="inline-flex h-9 w-9 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50"> */}
             <img
               src="/small-logo.svg"
               alt="Solutions Arkitect logo"
-              className="h-7 w-7"
+              className="h-24 w-24"
             />
-          </span>
-          <span className="font-semibold tracking-tight">Solutions Arkitect</span>
+          {/* </span> */}
+          {/* <span className="font-semibold tracking-tight">Solutions Arkitect</span> */}
         </NavLink>
       </div>
 

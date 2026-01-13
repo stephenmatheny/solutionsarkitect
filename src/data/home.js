@@ -21,7 +21,7 @@ export const offerings = [
     icon: "web",
     title: "Websites for Local Orgs",
     desc: "Modern websites for churches, nonprofits, and small businesses—with ongoing support.",
-    to: "/websites",
+    // to: "/websites",
   },
   {
     icon: "automation",

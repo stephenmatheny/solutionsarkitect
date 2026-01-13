@@ -9,23 +9,28 @@ import NotFound from "./pages/NotFound.jsx";
 import Software from "./pages/Software.jsx";
 import Websites from "./pages/Websites.jsx";
 import Automation from "./pages/Automation.jsx";
+import ScrollToTop from "./components/ScrollToTop.jsx";
 
 export default function App() {
   return (
-    <Routes>
-      <Route element={<Layout />}>
-        {/* ACTIVELY USED */}
-        <Route path="/" element={<Home />} />
-        <Route path="/academy" element={<Academy />} />
-        <Route path="/lufkin-chess" element={<LufkinChess />} />
-        <Route path="*" element={<NotFound />} />
+    <>
+      <ScrollToTop />
 
-        <Route path="/automation" element={<Automation />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/software" element={<Software />} />
-        <Route path="/websites" element={<Websites />} />
-      </Route>
-    </Routes>
+      <Routes>
+        <Route element={<Layout />}>
+          {/* ACTIVELY USED */}
+          <Route path="/" element={<Home />} />
+          <Route path="/academy" element={<Academy />} />
+          <Route path="/lufkin-chess" element={<LufkinChess />} />
+          <Route path="*" element={<NotFound />} />
+
+          <Route path="/automation" element={<Automation />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/software" element={<Software />} />
+          <Route path="/websites" element={<Websites />} />
+        </Route>
+      </Routes>
+    </>
   );
 }

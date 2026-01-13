@@ -5,6 +5,7 @@ import {
   navLinkBase,
   navLinkInactive,
 } from "../../styles/uiClasses.js";
+import { scrollToHashOrTop } from "../../utils/scrollToTop.js";
 
 export default function DesktopNav({ links }) {
   return (
@@ -17,6 +18,7 @@ export default function DesktopNav({ links }) {
             <NavLink
               key={to}
               to={to}
+              onClick={() => scrollToHashOrTop()}
               className={({ isActive }) =>
                 clsx(navLinkBase, isActive ? navLinkActive : navLinkInactive)
               }

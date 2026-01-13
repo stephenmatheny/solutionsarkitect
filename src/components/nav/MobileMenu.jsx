@@ -1,8 +1,14 @@
 import { NavLink } from "react-router-dom";
 import { IconX, IconChevronRight } from "@tabler/icons-react";
 import clsx from "clsx";
+import { scrollToHashOrTop } from "../../utils/scrollToTop.js";
 
 export default function MobileMenu({ isOpen, onClose, navLinks, drawerRef }) {
+  const handleNavClick = () => {
+    scrollToHashOrTop();
+    onClose();
+  };
+
   return (
     <div
       className={clsx(
@@ -82,7 +88,7 @@ export default function MobileMenu({ isOpen, onClose, navLinks, drawerRef }) {
                   <NavLink
                     key={to}
                     to={to}
-                    onClick={onClose}
+                    onClick={handleNavClick}
                     className={({ isActive }) =>
                       clsx(
                         "group flex items-center justify-between rounded-2xl px-3 py-3 text-base font-medium transition",

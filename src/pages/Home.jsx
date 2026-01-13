@@ -13,7 +13,7 @@ import {
 } from "@tabler/icons-react";
 import { offerings, steps } from "../data/home.js";
 
-function Card({ icon, title, desc }) {
+function Card({ icon, title, desc, to }) {
   return (
     <div className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md">
       <div className="flex items-start gap-4">
@@ -23,14 +23,14 @@ function Card({ icon, title, desc }) {
         <div className="min-w-0">
           <h3 className="text-lg font-semibold tracking-tight">{title}</h3>
           <p className="mt-1 text-sm leading-6 text-slate-600">{desc}</p>
-          {/* {to ? (
+          {to ? (
             <Link
               to={to}
               className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-slate-900 underline-offset-4 hover:underline"
             >
               Learn more <IconArrowRight size={16} />
             </Link>
-          ) : null} */}
+          ) : null}
         </div>
       </div>
     </div>
@@ -79,6 +79,7 @@ export default function Home() {
               icon={iconMap[item.icon]}
               title={item.title}
               desc={item.desc}
+              to={item.to}
             />
           ))}
         </div>

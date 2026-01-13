@@ -9,13 +9,13 @@ export const offerings = [
     icon: "chess",
     title: "Community Events",
     desc: "Chess club and other low-pressure events that grow logic, belonging, and joy.",
-    to: "/events",
+    to: "/lufkin-chess",
   },
   {
     icon: "software",
     title: "Educational Software",
     desc: "Tools that streamline school workflows so educators focus on students, not paperwork.",
-    to: "/software",
+    // to: "/software",
   },
   {
     icon: "web",
@@ -27,7 +27,7 @@ export const offerings = [
     icon: "automation",
     title: "School Workflow Automation",
     desc: "Automations that remove repetitive tasks (forms, approvals, notifications, reports).",
-    to: "/automation",
+    // to: "/automation",
   },
 ];
 
